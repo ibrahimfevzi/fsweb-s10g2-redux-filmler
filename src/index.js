@@ -6,11 +6,15 @@ import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import "./index.css";
 
-import { legacy_createStore as createStore } from "redux";
+import { legacy_createStore as createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import reducer from "./reducers";
-
-const myStore = createStore(reducer);
+import logger from "redux-logger";
+import { composeWithDevTools } from "@redux-devtools/extension";
+const myStore = createStore(
+  reducer,
+  composeWithDevTools(applyMiddleware(logger))
+);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
